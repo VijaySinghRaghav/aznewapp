@@ -44,6 +44,6 @@ steps:
   inputs:
     azureSubscription: 'VijayAzureConnection'
     appType: 'webApp'
-    appName: 'aznewapp16sep'
+    appName: 'azappmultihosting'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
     deploymentMethod: 'auto'
