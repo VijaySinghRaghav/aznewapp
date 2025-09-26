@@ -36,3 +36,10 @@ steps:
     publishWebProjects: true
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'VijayAzureConnection'
+    appType: 'webApp'
+    appName: 'azappmultihosting'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
