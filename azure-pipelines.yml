@@ -1,0 +1,38 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- main
+
+pool:
+  name: 'VijayPool'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+# 1. Checkout code
+- checkout: self
+
+# 2. Restore dependencies
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '/*.csproj'
+
+# 3. Build the Web API project
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+# 5. Publish Web API project
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: true
